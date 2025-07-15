@@ -3,12 +3,13 @@ namespace DSA.LinkedList;
 public class LinkedList<T> where T : notnull
 {
     public Node<T>? Head { get; set; }
-    public int Length;
+    public int Length { get; }
+    private int _length;
 
     public LinkedList()
     {
         Head = null;
-        Length = 0;
+        _length = 0;
     }
 
     public void InsertAtHead(T data)
@@ -23,7 +24,7 @@ public class LinkedList<T> where T : notnull
             newNode.Next = Head;
             Head = newNode;
         }
-        Length++;
+        _length++;
     }
 
     public void InsertAtTail(T data)
@@ -42,12 +43,12 @@ public class LinkedList<T> where T : notnull
             }
             current.Next = newNode;
         }
-        Length++;
+        _length++;
     }
 
     public void InsertAtPosition(T data, int position)
     {
-        if (position < 0 || position > Length)
+        if (position < 0 || position > _length)
         {
             throw new ArgumentOutOfRangeException(nameof(position), "Position is out of range.");
         }
@@ -56,7 +57,7 @@ public class LinkedList<T> where T : notnull
             InsertAtHead(data);
             return;
         }
-        if (position == Length)
+        if (position == _length)
         {
             InsertAtTail(data);
             return;
@@ -73,7 +74,7 @@ public class LinkedList<T> where T : notnull
         {
             newNode.Next = current.Next;
             current.Next = newNode;
-            Length++;
+            _length++;
         }
     }
 
@@ -84,7 +85,7 @@ public class LinkedList<T> where T : notnull
             throw new InvalidOperationException("List is empty.");
         }
         Head = Head.Next;
-        Length--;
+        _length--;
     }
 
     public void DeleteAtTail()
@@ -104,7 +105,7 @@ public class LinkedList<T> where T : notnull
             current = current.Next;
         }
         current.Next = null;
-        Length--;
+        _length--;
     }
 
     public void DeleteAtPosition(int position)
@@ -113,7 +114,7 @@ public class LinkedList<T> where T : notnull
         {
             throw new ArgumentOutOfRangeException(nameof(position), "Position is out of range.");
         }
-        if (position >= Length)
+        if (position >= _length)
         {
             throw new ArgumentOutOfRangeException(nameof(position), "Position is out of range.");
         }
@@ -122,7 +123,7 @@ public class LinkedList<T> where T : notnull
             DeleteAtHead();
             return;
         }
-        if (position == Length - 1)
+        if (position == _length - 1)
         {
             DeleteAtTail();
             return;
@@ -137,13 +138,13 @@ public class LinkedList<T> where T : notnull
         if (current != null && current.Next != null)
         {
             current.Next = current.Next.Next;
-            Length--;
+            _length--;
         }
     }
 
     public Array ToArray()
     {
-        T[] array = new T[Length];
+        T[] array = new T[_length];
         Node<T>? current = Head;
         int index = 0;
         while (current != null)
@@ -171,7 +172,7 @@ public class LinkedList<T> where T : notnull
     public void Clear()
     {
         Head = null;
-        Length = 0;
+        _length = 0;
     }
 
     public override string ToString()

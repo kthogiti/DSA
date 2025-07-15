@@ -22,7 +22,7 @@ namespace DSA.LinkedList.Tests
             var list = new LinkedList<int>();
             list.InsertAtHead(10);
             Assert.That(list.Head, Is.Not.Null);
-            Assert.That(list.Head.Data, Is.EqualTo(10));
+            Assert.That(list.Head?.Data, Is.EqualTo(10));
             Assert.That(list.Length, Is.EqualTo(1));
         }
 
